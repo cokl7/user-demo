@@ -1,0 +1,13 @@
+server:
+  port: 10087 # 端口
+spring:
+  application:
+    name: user-eureka # 应用名称，会在Eureka中显示
+  main:
+    allow-bean-definition-overriding: true #当出现相同名字的类进行注册时，准许覆盖注册
+eureka:
+  client:
+    register-with-eureka: false # 是否注册自己的信息到EurekaServer，默认是true
+    fetch-registry: false # 是否拉取服务列表，默认是true
+    service-url: # EurekaServer的地址，现在是自己的地址，如果是集群，需要加上其它Server的地址。
+      defaultZone: http://127.0.0.1:${server.port}/eureka

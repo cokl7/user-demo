@@ -1,0 +1,37 @@
+server:
+  port: 10010 #服务端口
+spring:
+  application:
+    name: user-zuul #指定服务名
+
+eureka:
+  client:
+    registry-fetch-interval-seconds: 5 # 获取服务列表的周期：5s
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka,http://127.0.0.1:10087/eureka
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+
+zuul:
+  retryable: true #重试机制开启
+  prefix: /api # 添加路由前缀
+  routes:
+    user-service: # 路由id,一般与服务名相同
+      path: /user-service/** # 映射路径
+      serviceId: user-service
+
+ribbon:
+  ConnectTimeout: 250 # 连接超时时间(ms)
+  ReadTimeout: 2000 # 通信超时时间(ms)
+  OkToRetryOnAllOperations: true # 是否对所有操作重试
+  MaxAutoRetriesNextServer: 2 # 同一服务不同实例的重试次数
+  MaxAutoRetries: 1 # 同一实例的重试次数
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 6000 # 熔断超时时长：6000ms

@@ -1,0 +1,5 @@
+# 项目排除路径
+/user-consume/target/
+/user-eureka/target/
+/user-service/target/
+/user-zuul/target/
